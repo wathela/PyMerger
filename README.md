@@ -5,7 +5,7 @@ Telescope (ET), based on a Deep Residual Neural Network model (ResNet).
 
 ## Overview
 
-This project trains and uses neural network models to identify BBH mergers without the need for data whitening or band-passing. The models are trained on both single detector and three detector combined data.
+PyMerger is a Python tool that a Deep Residual Neural Network model to identify BBH mergers without the need for data whitening or band-passing. The model is trained on three sub-detector combined data of ET..
 
 ## Installation
 
@@ -16,13 +16,13 @@ This project trains and uses neural network models to identify BBH mergers witho
 
 2. Install the required Python packages:
    ```sh
-   pip install -r requirements.txt
+   pip install -r requirements.txt 
 ## Usage
   ```sh
   python pymerger.py --input-file-dir path/to/your/data --output-dir path/to/save/results
-
+```
+### [License](LICENSE)
 
 ### Contact
-
 Developed by Wathela Alhassan, et al. 2024.
 Email: wathelahamed@gmail.com
