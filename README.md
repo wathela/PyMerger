@@ -1,4 +1,5 @@
 [![Language](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/wathela/pymerger/blob/main/LICENSE)
 
 # PyMerger
 
@@ -48,7 +49,8 @@ optional arguments:
 ```sh
    python pymerger.py -r 8192 -n 2 -c E1:STRAIN E2:STRAIN E3:STRAIN -t 0.5 -i /path/to/input/files -f /path/to/output/dir
 ```
-### [License](LICENSE)
+### License
+This project is licensed under the MIT [License](LICENSE)
 
 ### Contact
 Email: wathelahamed@gmail.com
