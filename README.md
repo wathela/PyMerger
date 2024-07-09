@@ -22,7 +22,7 @@ The model is trained on three sub-detectors combined data of ET.
    ```sh
    pip install -r requirements.txt 
 ## Usage
-PyMerger assumes that each sub-detector of ET (E1, E2, E3) will have a separate .gwf file in three separate directories. 
+PyMerger assumes that each sub-detector of ET will have a separate .gwf file in three separate directories (E1, E2, E3). 
 The data input path should point to the folder where these three directories are located.
 
 ```sh
