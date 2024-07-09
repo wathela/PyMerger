@@ -49,8 +49,6 @@ optional arguments:
 ```sh
    python pymerger.py -r 8192 -n 2 -c E1:STRAIN E2:STRAIN E3:STRAIN -t 0.5 -i /path/to/input/files -f /path/to/output/dir
 ```
-### License
-This project is licensed under the MIT [License](LICENSE)
 
 ### Contact
 Email: wathelahamed@gmail.com
