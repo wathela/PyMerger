@@ -1,11 +1,13 @@
+[![Language](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+
 # PyMerger
 
-PyMerger is a Python tool for detecting binary black hole (BBH) mergers from the Einstein
-Telescope (ET), based on a Deep Residual Neural Network model (ResNet).
+PyMerger is a Python tool for detecting binary black hole mergers from the Einstein
+Telescope, based on a Deep Residual Neural Network model.
 
 ## Overview
 
-PyMerger is a Python tool that a Deep Residual Neural Network model to identify BBH mergers without the need for data whitening or band-passing. The model is trained on three sub-detector combined data of ET..
+PyMerger is a Python tool that a Deep Residual Neural Network model to identify BBH mergers without the need for data whitening or band-passing. The model is trained on three sub-detectors combined data of ET.
 
 ## Installation
 
@@ -19,7 +21,7 @@ PyMerger is a Python tool that a Deep Residual Neural Network model to identify 
    pip install -r requirements.txt 
 ## Usage
   ```sh
-  python pymerger.py --input-file-dir path/to/your/data --output-dir path/to/save/results
+  python pymerger.py --input-file-dir path/to/your/data --output-dir path/to/save/results [options]
 ```
 ### [License](LICENSE)
 
