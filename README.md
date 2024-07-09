@@ -7,7 +7,8 @@ Telescope, based on a Deep Residual Neural Network model.
 
 ## Overview
 
-PyMerger is a Python tool that uses a Deep Residual Neural Network model to identify BBH mergers without the need for data whitening or band-passing. The model is trained on three sub-detectors combined data of ET.
+PyMerger is a Python tool that uses a Deep Residual Neural Network model to identify BBH mergers without the need for data whitening or band-passing. 
+The model is trained on three sub-detectors combined data of ET.
 
 ## Installation
 
@@ -29,11 +30,14 @@ optional arguments:
   -r {8192,4096}, --sampling-rate {8192,4096}
                         Sampling rate of the input data (either 8192 or 4096). Default is 8192.
   -n NO_SEGMENT, --no-segment NO_SEGMENT
-                        Number of data segments to be processed for each detector (i.e., number of .gwf files to be processed for each detector). Files in the input directory will be sorted, and the first 'n' files up to the specified number of segments will be processed. Default is 1 which means there are 1 unique file from each detector.
+                        Number of data segments to be processed for each detector (i.e., number of .gwf files to be processed for each detector).
+                        Files in the input directory will be sorted, and the first 'n' files up to the specified number of segments will be processed.
+                        Default is 1 which means there are 1 unique file from each detector.
   -c CHANNELS CHANNELS CHANNELS, --channels CHANNELS CHANNELS CHANNELS
                         List of the THREE channels to be processed. Default is ['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'].
   -t THRESHOLD, --threshold THRESHOLD
-                        Threshold value for merger detection. A value between 0.1 and 0.5, where a smaller value will result in fewer detections but a lower false positive rate. Default is 0.4.
+                        Threshold value for merger detection. A value between 0.1 and 0.5, where a smaller value will result in fewer detections but
+                        a lower false positive rate. Default is 0.4.
   -i INPUT_FILE_DIR, --input-file-dir INPUT_FILE_DIR
                         Directory containing the input .gwf files.
   -f OUTPUT_DIR, --output-dir OUTPUT_DIR
