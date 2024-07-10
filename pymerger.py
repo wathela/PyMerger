@@ -10,9 +10,16 @@ import warnings
 logging.getLogger('pycbc').setLevel(logging.ERROR)
 import numpy as np
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 from gwpy.timeseries import TimeSeries
 import scipy as sp
+
+def load_model(path):
+
+    # Load the TFLite model and allocate tensors.
+    interpreter = tf.lite.Interpreter(model_path=path)
+    interpreter.allocate_tensors()
+    return interpreter
 
 
 
@@ -29,7 +36,16 @@ class ETFileScanner:
         self.result_path = result_path
         self.batch_size = batch_size
         self.verbose = verbose
+    def predict(self, data):
+        input_data = np.array(data, dtype=np.float32) 
+        input_details = self.detector.get_input_details()
+        output_details = self.detector.get_output_details()
+        self.detector.set_tensor(input_details[0]['index'], input_data)
 
+        self.detector.invoke()
+
+        return self.detector.get_tensor(output_details[0]['index'])
+    
     def scale_minmax(self, X, mn=0.0, mx=1.0):
         return (X - X.min()) / (X.max() - X.min()) * (mx - mn) + mn
 
@@ -110,7 +126,7 @@ class ETFileScanner:
                     E123_inj[:, :, 2] = img3
 
                     reshaped_image = np.expand_dims(E123_inj, axis=0)
-                    prediction = self.detector.predict(reshaped_image, verbose=0)
+                    prediction = self.predict(reshaped_image)
                     classification = self.find_class(prediction[0])
 
                     if classification == 0:
@@ -246,15 +262,15 @@ def main():
         logging.info(msg)
         result_path = "PyMerger_result/"
         if not os.path.exists(result_path):
-            logging.info("A directory named PyMerger_result will be created in the current directory to store the results.")
+            logging.info(f"A directory named {result_path} will be created in the current directory to store the results.")
             os.makedirs(result_path)
         else:
-            logging.info("Results will be stored in PyMerger_result directory.")
+            logging.info(f"Results will be stored in {result_path} directory.")
     data_path = args.input_file_dir
     verbose = args.verbose
 
     # Load the pre-trained model
-    model_path = "models/pymerger_model.h5"
+    model_path = "models/model.tflite"
     detector = load_model(model_path)
 
     # choose the sliding-window size based on the given samling rate
