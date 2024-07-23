@@ -233,7 +233,7 @@ def main():
     parser.add_argument('-c', '--channels', nargs=3, default=['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'],
                     help="List of the THREE channels to be processed. Default is ['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'].")
 
-    parser.add_argument('-t', '--threshold', type=float, default=0.5,
+    parser.add_argument('-t', '--threshold', type=float, default=0.6,
                     help="Threshold value for merger detection. A value between 0.1 and 0.5, where a smaller value will result in fewer detections but a lower false positive rate. Default is 0.4. ")
 
     parser.add_argument('-i', '--input-file-dir', type=str,
