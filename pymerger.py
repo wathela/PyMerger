@@ -130,7 +130,7 @@ class ETFileScanner:
                     classification = self.find_class(prediction[0])
 
                     if classification == 0:
-                        self.save_results(ET1_slice.start_time, ET1_slice.end_time, prediction[0][0], 0, result_file_name)
+                        self.save_results(ET1_slice.start_time, ET1_slice.end_time, 1-prediction[0][0], 0, result_file_name)
                 
                     # Clean up variables to free memory
                     del ET1_slice, ET2_slice, ET3_slice, img1, img2, img3, E123_inj
@@ -270,7 +270,7 @@ def main():
     verbose = args.verbose
 
     # Load the pre-trained model
-    model_path = "models/model.tflite"
+    model_path = "models/pymerger_model.tflite"
     detector = load_model(model_path)
 
     # choose the sliding-window size based on the given samling rate
