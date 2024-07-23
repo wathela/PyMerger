@@ -8,8 +8,7 @@ Telescope, based on a Deep Residual Neural Network model.
 
 ## Overview
 
-PyMerger is a Python tool that uses a Deep Residual Neural Network model to identify BBH mergers without the need for data whitening or band-passing. 
-The model is trained on three sub-detectors combined data of ET.
+We present PyMerger, a Python tool for detecting binary black hole (BBH) mergers from the Einstein Telescope (ET), based on a Deep Residual Neural Network model (ResNet). ResNet was trained on data combined from all three proposed sub-detectors of ET (TSDCD) to detect BBH mergers. Five different lower frequency cutoffs (F_low): 5 Hz, 10 Hz, 15 Hz, 20 Hz, and 30 Hz, with match-filter Signal-to-Noise Ratio (MSNR) ranges: 4-5, 5-6, 6-7, 7-8, and >8, were employed in the data simulation. Compared to previous work that utilized data from single sub-detector data (SSDD), the detection accuracy from TSDCD has shown substantial improvements, increasing from 60%, 60.5%, 84.5%, 94.5% to 78.5%, 84%, 99.5%, 100%, and 100% for sources with MSNR of 4-5, 5-6, 6-7, 7-8, and >8, respectively. The ResNet model was evaluated on the first Einstein Telescope mock Data Challenge (ET-MDC1) dataset, where the model demonstrated strong performance in detecting BBH mergers, identifying 5,566 out of 6,578 BBH events, with optimal SNR starting from 1.2, and a minimum and maximum D_L of 0.5 Gpc and 148.95 Gpc, respectively. Despite being trained only on BBH mergers without overlapping sources, the model achieved high BBH detection rates. Notably, even though the model was not trained on BNS and BHNS mergers, it successfully detected 11,477 BNS and 323 BHNS mergers in ET-MDC1, with optimal SNR starting from 0.2 and 1, respectively, indicating its potential for broader applicability.
 
 ## Installation
 
