@@ -28,7 +28,7 @@ The data input path should point to the folder where these three directories are
 usage: pymerger.py [-h] [-r {8192,4096}] [-n NO_SEGMENT] [-c CHANNELS CHANNELS CHANNELS] [-t THRESHOLD] -i INPUT_FILE_DIR -f OUTPUT_DIR [--verbose]
 
 optional arguments:
-  -h, --help            show this help message and exit
+  '-h, --help            show this help message and exit
   -r {8192,4096}, --sampling-rate {8192,4096}
                         Sampling rate of the input data (either 8192 or 4096). Default is 8192.
   -n NO_SEGMENT, --no-segment NO_SEGMENT
@@ -38,13 +38,13 @@ optional arguments:
   -c CHANNELS CHANNELS CHANNELS, --channels CHANNELS CHANNELS CHANNELS
                         List of the THREE channels to be processed. Default is ['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'].
   -t THRESHOLD, --threshold THRESHOLD
-                        Threshold value for merger detection. A value between 0.1 and 0.5, where a smaller value will result in fewer detections but
-                        a lower false positive rate. Default is 0.4.
+                        Threshold value for merger detection. A value between 0.4 and 1, where a smaller value will result in fewer detections but
+                        a lower false positive rate. Default is 0.6.
   -i INPUT_FILE_DIR, --input-file-dir INPUT_FILE_DIR
                         Directory containing the input .gwf files.
   -f OUTPUT_DIR, --output-dir OUTPUT_DIR
                         Directory to store the results.
-  --verbose             Enable verbose mode to print update messages. Default is true.
+  --verbose             Enable verbose mode to print update messages. Default is true.'
 ```
 ### Example: 
 ```sh
