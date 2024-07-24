@@ -234,7 +234,7 @@ def main():
                     help="List of the THREE channels to be processed. Default is ['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'].")
 
     parser.add_argument('-t', '--threshold', type=float, default=0.6,
-                    help="Threshold value for merger detection. A value between 0.1 and 0.5, where a smaller value will result in fewer detections but a lower false positive rate. Default is 0.4. ")
+                    help="Threshold value for merger detection. A value between 0.4 and 1, where a smaller value will result in fewer detections but a lower false positive rate. Default is 0.6. ")
 
     parser.add_argument('-i', '--input-file-dir', type=str,
                         help="Directory containing the input .gwf files.")
