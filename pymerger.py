@@ -233,8 +233,8 @@ def main():
     parser.add_argument('-c', '--channels', nargs=3, default=['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'],
                     help="List of the THREE channels to be processed. Default is ['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'].")
 
-    parser.add_argument('-t', '--threshold', type=float, default=0.6,
-                    help="Threshold value for merger detection. A value between 0.4 and 1, where a smaller value will result in fewer detections but a lower false positive rate. Default is 0.6. ")
+    parser.add_argument('-t', '--threshold', type=float, default=0.2,
+                    help="Threshold value for merger detection. A value between 0.1 and 0.5, where a smaller value will result in fewer detections but a lower false positive rate. Default is 0.2. ")
 
     parser.add_argument('-i', '--input-file-dir', type=str,
                         help="Directory containing the input .gwf files.")
@@ -280,21 +280,19 @@ def main():
         logging.info(f"Sliding window set to {window_size} seconds.")
 
    
-
-    #Add threshold
     threshold = args.threshold
     channels = args.channels
     num_seg = args.no_segment
     
     process_start_time = time.time()
 
-    # Process each data and parameter file pair
+    # Process 
     processor = ETFileScanner(data_path, num_seg, channels, threshold, window_size, xsize, detector, result_path, verbose)
     processor.scan_files()
-    # End measuring time
+    
     process_end_time = time.time()
 
-    # Calculate and print the elapsed time
+    # Elapsed time
     elapsed_time = (process_end_time - process_start_time)/60
     if verbose:
         logging.info((f"Done! Processed in: {elapsed_time:.2f} minutes"))  
