@@ -24,7 +24,7 @@ We present PyMerger, a Python tool for detecting binary black hole (BBH) mergers
 PyMerger assumes that each sub-detector of ET will have a separate .gwf file in three separate directories (E1, E2, E3). 
 The data input path should point to the folder where these three directories are located.
 
-```sh
+```
 usage: pymerger.py [-h] [-r {8192,4096}] [-n NO_SEGMENT] [-c CHANNELS CHANNELS CHANNELS] [-t THRESHOLD] -i INPUT_FILE_DIR -f OUTPUT_DIR [--verbose]
 
 optional arguments:
@@ -38,8 +38,8 @@ optional arguments:
   -c CHANNELS CHANNELS CHANNELS, --channels CHANNELS CHANNELS CHANNELS
                         List of the THREE channels to be processed. Default is ['E1:STRAIN', 'E2:STRAIN', 'E3:STRAIN'].
   -t THRESHOLD, --threshold THRESHOLD
-                        Threshold value for merger detection. A value between 0.4 and 1, where a smaller value will result in fewer detections but
-                        a lower false positive rate. Default is 0.6.
+                        Threshold value for merger detection. A value between 0.5 and 0, where a smaller value will result in fewer detections but
+                        a lower false positive rate. Default is 0.1 (accepting detection with at least 90\% confidence).
   -i INPUT_FILE_DIR, --input-file-dir INPUT_FILE_DIR
                         Directory containing the input .gwf files.
   -f OUTPUT_DIR, --output-dir OUTPUT_DIR
