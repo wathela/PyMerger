@@ -1,4 +1,5 @@
 from ensurepip import version
+import pkg_resources
 import os
 import argparse
 import gc
@@ -6,25 +7,36 @@ import time
 from tqdm import tqdm
 from contextlib import redirect_stdout
 import logging
-import warnings
 logging.getLogger('pycbc').setLevel(logging.ERROR)
 import numpy as np
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 from gwpy.timeseries import TimeSeries
 import scipy as sp
+from typing import List
 
-def load_model(path):
+def load_model(path: str) -> tf.lite.Interpreter:
 
     # Load the TFLite model and allocate tensors.
     interpreter = tf.lite.Interpreter(model_path=path)
     interpreter.allocate_tensors()
+    logging.info("Model loaded.")
     return interpreter
 
 
 
 class ETFileScanner:
-    def __init__(self, data_path, num_seg, channels, threshold, window_size, xsize, detector, result_path, verbose, batch_size=50):
+    def __init__(self, data_path: str, 
+                 num_seg: int, 
+                 channels: List[str], 
+                 threshold: float, 
+                 window_size: int, 
+                 xsize: int, 
+                 detector: tf.lite.Interpreter, 
+                 result_path: str, 
+                 verbose: bool, 
+                 batch_size: int = 50) -> None:
+        
         self.data_path = data_path
         self.num_seg = num_seg
         self.channels = channels
@@ -36,7 +48,8 @@ class ETFileScanner:
         self.result_path = result_path
         self.batch_size = batch_size
         self.verbose = verbose
-    def predict(self, data):
+
+    def predict(self, data: np.ndarray) -> np.ndarray:
         input_data = np.array(data, dtype=np.float32) 
         input_details = self.detector.get_input_details()
         output_details = self.detector.get_output_details()
@@ -46,28 +59,28 @@ class ETFileScanner:
 
         return self.detector.get_tensor(output_details[0]['index'])
     
-    def scale_minmax(self, X, mn=0.0, mx=1.0):
+    def scale_minmax(self, X: np.ndarray, mn: float = 0.0, mx: float = 1.0) -> np.ndarray:
         return (X - X.min()) / (X.max() - X.min()) * (mx - mn) + mn
 
-    def ts_to_img(self, ts):
+    def ts_to_img(self, ts: TimeSeries) -> np.ndarray:
         Sxx = sp.signal.spectrogram(x=np.array(ts), fs=self.fs, nfft=1024, mode='magnitude')[2]
         return np.flip(self.scale_minmax(Sxx), axis=0)[-42:, :]
 
-    def get_slice(self, ET_data, start_time, data_end, window_size):
+    def get_slice(self, ET_data: TimeSeries, start_time: float, data_end: float, window_size: float) -> TimeSeries:
         if data_end >= window_size:
             ET_seg = ET_data.time_slice(start=start_time, end=window_size)
         else:
             ET_seg = ET_data.time_slice(start=abs(data_end - window_size), end=data_end)
         return ET_seg
 
-    def save_results(self, start_time, end_time, prob, cls, file_name):
+    def save_results(self,  start_time: float, end_time: float, prob: float, cls: int, file_name: str) -> None:
         with open(os.path.join(self.result_path, file_name + '.txt'), 'a') as f:
             f.write("{:.3f},{:.3f},{:.4f},{}\n".format(float(start_time), float(end_time), prob, cls))
 
-    def find_class(self, result):
+    def find_class(self, result: float) -> int:
         return 1 if result >= self.threshold else 0
 
-    def get_sorted_files(self, input_path):
+    def get_sorted_files(self,  input_path: List[str]) -> List[str]:
         # directories
         sub_detectors = ['E1', 'E2', 'E3']
         sorted_files = {}
@@ -86,7 +99,7 @@ class ETFileScanner:
         
         return sorted_files
 
-    def scan_files(self):
+    def scan_files(self) -> None:
         data_files = self.get_sorted_files(self.data_path)
         for E1_file,E2_file, E3_file in tqdm(zip(data_files['E1'], data_files['E2'], data_files['E3']), total=len(data_files['E3'])):
         # for data_file in tqdm(data_files):
@@ -201,14 +214,14 @@ class ETFileScanner:
                 with open('failed_files.txt', 'a') as f:
                     f.write(f"{file_suffix}\n")
 
-    def process_files(self, data_files):
+    def process_files(self, data_files) -> None:
         for i in tqdm(range(0, len(data_files), self.batch_size)):
             batch_files = data_files[i:i + self.batch_size]
             self.process_batch(batch_files)
             gc.collect()
 
 
-def main():
+def main() -> None:
     # Welcome message :)
     print("*********************************************")
     print("* ^|^ ^|^ ^|^ ^|^ ^|^ ^|^ ^|^ ^|^ ^|^ ^|^ ^|^ *")
@@ -270,7 +283,7 @@ def main():
     verbose = args.verbose
 
     # Load the pre-trained model
-    model_path = "models/pymerger_model.tflite"
+    model_path = model_path = pkg_resources.resource_filename('PyMergers', 'models/pymerger_model.tflite')#".models/pymerger_model.tflite"
     detector = load_model(model_path)
 
     # choose the sliding-window size based on the given samling rate
