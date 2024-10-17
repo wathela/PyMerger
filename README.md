@@ -34,7 +34,7 @@ Or
 
 1. Clone the repository:
 ```sh
-   git clone https://github.com/your-username/PyMerger.git
+   git clone https://github.com/wathela/PyMerger.git
    cd PyMerger
 ```
 2. Install the [required Python packages](requirements.txt):
